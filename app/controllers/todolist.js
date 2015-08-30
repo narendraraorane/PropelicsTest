@@ -123,7 +123,11 @@ else if(OS_ANDROID){
 }
 
 function onWinFocus() {
-	$.btnPending.fireEvent("click");
+	if(status === "Pending") {
+		$.btnPending.fireEvent("click");
+	} else {
+		$.btnCompleted.fireEvent("click");
+	}
 }
 
 function init() {
@@ -163,6 +167,11 @@ function addToDoItem() {
 	return;
 }
 
+function displayHomeAsUp() {
+	Alloy.Globals.Navigator.open("todoform");
+	return;
+}
+
 function filterOutput(collection) {
 	return collection.where({status: status});
 }
@@ -177,11 +186,13 @@ function emlShare(e) {
 			emailDialog.subject = "To Do List";
 			emailDialog.toRecipients = ['pablo.guevara@propelics.com', 'carolina.lopez@propelics.com', 'cesar.cavazos@propelics.com'];
 			emailDialog.messageBody = '<b>' + value.status + '</b><br/>' + value.content;
-			var filename = value.image.split("/");
-			if(filename.length > 0) {
-				filename = filename[filename.length - 1];
-	            var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, filename);
-				emailDialog.addAttachment(file);
+			if(value.image && value.image != "") {
+				var filename = value.image.split("/");
+				if(filename.length > 0) {
+					filename = filename[filename.length - 1];
+		            var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, filename);
+					emailDialog.addAttachment(file);
+				}
 			}
 			emailDialog.open();			
 		}		
@@ -199,7 +210,7 @@ function smsShare(e) {
 			if(OS_IOS) {
 				sendSMS("+91 9167027016", value.content + "\n" + value.status, value.imge);
 			} else {
-				openSMSIntent();
+				openSMSIntent("+91 9167027016", value.content);
 			}
 
 		}		
@@ -212,7 +223,7 @@ function openSMSIntent(phone, content) {
 		data: 'smsto:' + phone
 	});
 	intent.putExtra('sms_body', content);
-	Ti.Android.currentActivity.startActivity(intent);	
+	Ti.Android.currentActivity.startActivity(intent);
 }
 
 function sendSMS(phone, content, imagePath) {

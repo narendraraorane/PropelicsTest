@@ -4,13 +4,13 @@
 			Menu Item for add new todo list.
 		-->
 		<Menu id="menu" platform="android">
-			<MenuItem icon="Ti.Android.R.drawable.ic_input_add" title="Save" onClick="saveToDoItem" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS"/>
+			<MenuItem title="Save" onClick="saveToDoItem" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS"/>
         </Menu>
         <RightNavButton platform="ios">
         		<Button onClick="saveToDoItem">Save</Button>
         </RightNavButton>
 		
-		<View height="200">
+		<View height="200" width="100%">
 			<ImageView id="imgToDo" image="/Default.png" />
 			<Button id="btnGallary" onClick="onGalleryClick" />
 			<Button id="btnCamera" onClick="onCameraClick" />

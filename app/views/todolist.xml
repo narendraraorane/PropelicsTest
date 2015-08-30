@@ -27,7 +27,7 @@
 			-->
 			<View platform="android" class="size hgroup">
 				<Label class="icon icon-search left-buffer" />
-				<TextField id="searchBar" class="search" onChange="onSearchChange" />
+				<TextField id="searchBar" class="search top-buffer" onChange="onSearchChange" />
 				<Label id="closeBtn" class="icon-close right-buffer" onClick="onSearchCancel" />
 			</View>
 			<View class="gray-line bottom"/>
@@ -46,8 +46,8 @@
 								<View class="hgroup bottom" height="25">
 									<Label id="lblDtModified" bindId="lblDtModified" class="subtitle left-buffer" />
 									<Label id="lblStatus" bindId="lblStatus" class="subtitle left10" />
-									<Label id="emailBtn" class="icon icon-btn icon-email left15" onClick="emlShare"/>
-									<Label id="msgBtn" class="icon icon-btn icon-message left-buffer" onClick="smsShare"/>
+									<Label id="emailBtn" class="icon icon-btn icon-email left15" bubbleParent="false" onClick="emlShare"/>
+									<Label id="msgBtn" class="icon icon-btn icon-message left-buffer" bubbleParent="false" onClick="smsShare"/>
 								</View>
 							</View>
 							<!-- <View class="gray-line bottom"/> -->

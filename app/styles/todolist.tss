@@ -113,14 +113,16 @@
 	title:"Pending",
 	class:"top-buffer",
 	left:"55",
-	color:"red"
+	color:"red",
+	backgroundColor: "#E5E4E2"
 }
 
 "#btnCompleted" : {
 	title:"Completed",
 	class:"top-buffer",
 	right:"55",
-	color:"#306754"		
+	color:"#306754",
+	backgroundColor: "#E5E4E2"	
 }
 
 ".fontBold": {
