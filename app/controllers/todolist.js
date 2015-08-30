@@ -208,9 +208,9 @@ function smsShare(e) {
 		if(value.id === item.todo.id) {
 			console.log("data ==> " + JSON.stringify(value));
 			if(OS_IOS) {
-				sendSMS("+91 9167027016", value.content + "\n" + value.status, value.imge);
+				sendSMS("+91 1234567890", value.content + "\n" + value.status, value.imge);
 			} else {
-				openSMSIntent("+91 9167027016", value.content);
+				openSMSIntent("+91 1234567890", value.content);
 			}
 
 		}		
