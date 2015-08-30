@@ -3,9 +3,23 @@
 	bottom: 10,
 	backgroundImage: "/images/gallary.png"
 },
+"#btnGallary[platform=android]": {
+	left: 10,
+	bottom: 10,
+	height: 64,
+	width: 64,
+	backgroundImage: "/images/gallary.png"
+},
 "#btnCamera": {
 	Right: 10,
 	bottom: 10,
+	backgroundImage: "/images/camera.png"
+},
+"#btnCamera[platform=android]": {
+	left: 325,
+	bottom: 10,
+	height: 64,
+	width: 64,
 	backgroundImage: "/images/camera.png"
 },
 "#txtContent": {
@@ -13,5 +27,12 @@
 	borderColor:"#ececec",
 	borderWidth: 1,
 	height: 200,
+	color: "#000"
+}
+"#txtContent[platform=android]": {
+	hintText:"Your to do item",
+	borderColor:"#ececec",
+	borderWidth: 1,
+	width: 340,
 	color: "#000"
 }
