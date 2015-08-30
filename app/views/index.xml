@@ -1,5 +1,16 @@
 <Alloy>
-	<Window class="container">
-		<Label id="label" onClick="doClick">Hello, World</Label>
-	</Window>
+	<!-- Default App Window -->
+	<Require id="index" src="todolist" platform="android" /> 
+	
+    <!-- iOS Window -->
+    <NavigationWindow id="nav" platform="ios" class="container">
+    		<Require src="todolist"/>
+    </NavigationWindow>
+    
+    <!-- MobileWeb -->
+    <Window platform="mobileweb">
+	    <NavigationGroup id="nav" class="container">
+	    		<Require src="todolist"/>
+    		</NavigationGroup>
+    </Window>
 </Alloy>

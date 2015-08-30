@@ -1,0 +1,67 @@
+<Alloy>
+	<Collection src="todolist"/>
+	<!--
+		This view wraps all of the child views/lists etc. Creates a base layout, vertically aligned.
+	-->
+	<Window id="wrapper" title="To Do List" onFocus="onWinFocus">
+		<!-- 
+			Menu Item for add new todo list.
+		-->
+		<Menu id="menu" platform="android">
+			<MenuItem icon="Ti.Android.R.drawable.ic_input_add" onClick="addToDoItem" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS"/>
+        </Menu>
+        <RightNavButton platform="ios">
+        		<Button onClick="addToDoItem">+</Button>
+        </RightNavButton>
+    		<View  class="vgroup">
+			<!--
+			If you would like the searchbar to scroll up with the listView, you can move this line before the last
+			</ListView> tag. However for our implementation, we want the searchBar to be present at all times so we have moved
+			it outside of the ListView tags.
+			-->
+			<SearchBar id="searchBar" platform="ios" class="search" onFocus="onSearchFocus" onCancel="onSearchCancel"  onChange="onSearchChange" />
+			
+			<!--
+				To create a more customized searchView for Android, we are creating a custom view that ties back to the listView
+				through the onChange event.
+			-->
+			<View platform="android" class="size hgroup">
+				<Label class="icon icon-search left-buffer" />
+				<TextField id="searchBar" class="search" onChange="onSearchChange" />
+				<Label id="closeBtn" class="icon-close right-buffer" onClick="onSearchCancel" />
+			</View>
+			<View class="gray-line bottom"/>
+			<!--
+				The ToDo list. 
+				This listView have template.
+			-->
+			<ListView id="listView" defaultItemTemplate="userTemplate" onItemclick="onItemClick">
+				<Templates>
+					<!-- UserTemplate - this is the default ListItem template -->
+					<ItemTemplate id="userTemplate" name="userTemplate" class="template">
+						<View class="hgroup left-buffer">
+							<ImageView id="imgPhoto" bindId="imgPhoto" class="avatar"/>
+							<View>
+								<Label id="lblContent" bindId="lblContent" class="title top" height="70" />
+								<View class="hgroup bottom" height="25">
+									<Label id="lblDtModified" bindId="lblDtModified" class="subtitle left-buffer" />
+									<Label id="lblStatus" bindId="lblStatus" class="subtitle left10" />
+									<Label id="emailBtn" class="icon icon-btn icon-email left15" onClick="emlShare"/>
+									<Label id="msgBtn" class="icon icon-btn icon-message left-buffer" onClick="smsShare"/>
+								</View>
+							</View>
+							<!-- <View class="gray-line bottom"/> -->
+						</View>
+					</ItemTemplate>
+				</Templates>
+				<ListSection id="section" dataCollection="todolist" dataTransform="doTransform" dataFilter="filterOutput">
+					<ListItem template="userTemplate" imgPhoto:image="{image}" lblContent:text="{content}" lblDtModified:text="{dt_modified}" todo:id="{id}" lblStatus:text="{status}" searchableText="{content}" accessoryType="Titanium.UI.LIST_ACCESSORY_TYPE_DISCLOSURE" />
+				</ListSection>				
+			</ListView>
+		</View>
+		<View id="vwBtnContainer">
+			<Button id="btnPending" class="fontBold" onClick="sortData" />
+			<Button id="btnCompleted" onClick="sortData"/>
+		</View>
+	</Window>
+</Alloy>

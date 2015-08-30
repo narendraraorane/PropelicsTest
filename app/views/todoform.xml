@@ -1,0 +1,30 @@
+<Alloy>
+	<Window id="win" class="vgroup" title="Add To Do">
+		<!-- 
+			Menu Item for add new todo list.
+		-->
+		<Menu id="menu" platform="android">
+			<MenuItem icon="Ti.Android.R.drawable.ic_input_add" title="Save" onClick="saveToDoItem" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS"/>
+        </Menu>
+        <RightNavButton platform="ios">
+        		<Button onClick="saveToDoItem">Save</Button>
+        </RightNavButton>
+		
+		<View height="200">
+			<ImageView id="imgToDo" image="/Default.png" />
+			<Button id="btnGallary" onClick="onGalleryClick" />
+			<Button id="btnCamera" onClick="onCameraClick" />
+		</View>
+		<View class="gray-line bottom"/>
+		<View class="top-buffer hgroup span-width">
+			<Label text="Content" class="left-buffer" />
+			<TextArea id="txtContent" module="xp.ui" class="left-buffer right-buffer"/>
+		</View>
+		<View class="top-buffer hgroup">
+			<Label text="Status" class="left-buffer" />
+			<Label text="Pending" class="left15" />
+			<Switch id="swtchStatus" class="left15" />
+			<Label text="Completed" class="left15" />
+		</View>
+	</Window>
+</Alloy>
