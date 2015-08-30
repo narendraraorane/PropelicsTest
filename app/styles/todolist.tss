@@ -1,0 +1,131 @@
+
+/**
+ * 	Style for The User Template
+ */
+".template":{
+	height: 100,
+	width: Ti.UI.FILL
+},
+
+".title":{
+	font:{
+		fontSize: 14
+	},
+	color: "#444"
+},
+
+".subtitle":{
+	font:{
+		fontSize: 10
+	},
+	height: Ti.UI.SIZE,
+	color: "#666",
+	top: 5
+},
+
+".avatar":{
+	border: 1,
+	borderColor: "#acacac",
+	height: 75,
+	width: 75,//Ti.UI.SIZE,
+	top: 12,
+	left: 0,
+	borderRadius: 35
+},
+
+".search":{ 
+	backgroundColor: "#fff",
+	borderWidth:0,
+	borderColor:"#fff",
+	tintColor: "#C41230",
+	hintText: "Search",
+	barColor: "#fff",
+},
+
+".icon-search[platform=android]":{
+	font:{
+		fontFamily:"icomoon",
+		fontSize:24,
+	},
+	text: "\uf002",		//Unicode for Search icon font
+	color: "#999",
+	width:"7%",
+},
+
+".icon-close[platform=android]":{
+	font:{
+		fontFamily:"icomoon",
+		fontSize:24,
+	},
+	text: "\uf057",		// Unicode for close icon font
+	color: "#999",
+	height: 40,
+	width:"7%",
+	visible: false
+},
+
+"#searchBar[platform=android]":{
+	height: 40,
+	left: 10,
+	width: "76%"
+},
+
+"#listView":{
+	tintColor: "#666"
+},
+
+"#lblContent": {
+	left: 5
+},
+
+".icon-btn":{
+	height: 25,
+	width: 25,
+	color: "#82CAFA",
+	textAlign: "center",
+	font:{
+		fontSize: 9
+	}
+},
+
+".icon-email":{
+	text:"\uf0e0"	
+},
+
+".icon-message":{
+	text:"\uf075"
+},
+
+"#lblStatus": {
+	color: 'black',
+	font: {
+		fontWeight: 'bold'
+	}
+}
+
+"#vwBtnContainer": {
+	bottom: "0",
+	height: "44",
+	backgroundColor: "#E5E4E2"	
+}
+
+"#btnPending": {
+	title:"Pending",
+	class:"top-buffer",
+	left:"55",
+	color:"red"
+}
+
+"#btnCompleted" : {
+	title:"Completed",
+	class:"top-buffer",
+	right:"55",
+	color:"#306754"		
+}
+
+".fontBold": {
+	font: {
+		fontWeight: 'bold',
+		fontSize: 20
+	}
+}

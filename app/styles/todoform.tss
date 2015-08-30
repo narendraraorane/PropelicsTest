@@ -1,0 +1,17 @@
+"#btnGallary": {
+	left: 10,
+	bottom: 10,
+	backgroundImage: "/images/gallary.png"
+},
+"#btnCamera": {
+	Right: 10,
+	bottom: 10,
+	backgroundImage: "/images/camera.png"
+},
+"#txtContent": {
+	hintText:"Your to do item",
+	borderColor:"#ececec",
+	borderWidth: 1,
+	height: 200,
+	color: "#000"
+}
