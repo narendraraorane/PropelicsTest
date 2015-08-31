@@ -167,7 +167,7 @@ function emlShare(e) {
 			var emailDialog = Ti.UI.createEmailDialog();
 			emailDialog.subject = "To Do List";
 			emailDialog.toRecipients = ['pablo.guevara@propelics.com', 'carolina.lopez@propelics.com', 'cesar.cavazos@propelics.com'];
-			emailDialog.messageBody = '<b>' + value.status + '</b><br/>' + value.content;
+			emailDialog.messageBody = 'Task - ' + value.content + '\nStatus - ' + value.status;
 			if(value.image && value.image != "") {
 				emailDialog.addAttachment(value.image);
 			}
@@ -186,18 +186,18 @@ function smsShare(e) {
 			if(OS_IOS) {
 				sendSMS("+91 1234567890", value.content + "\n" + value.status, value.image);
 			} else {
-				openSMSIntent("+91 1234567890", value.content);
+				openSMSIntent("+91 1234567890", value.content, value.status);
 			}
 		}		
 	});
 }
 
-function openSMSIntent(phone, content) {
+function openSMSIntent(phone, content, status) {
 	var intent = Ti.Android.createIntent({
 		action: Ti.Android.ACTION_SENDTO,
 		data: 'smsto:' + phone
 	});
-	intent.putExtra('sms_body', content);
+	intent.putExtra('sms_body', "Task - " + content + "\nStauts - " + status);
 	Ti.Android.currentActivity.startActivity(intent);
 }
 
