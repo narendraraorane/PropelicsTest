@@ -167,7 +167,7 @@ function emlShare(e) {
 			var emailDialog = Ti.UI.createEmailDialog();
 			emailDialog.subject = "To Do List";
 			emailDialog.toRecipients = ['pablo.guevara@propelics.com', 'carolina.lopez@propelics.com', 'cesar.cavazos@propelics.com'];
-			emailDialog.messageBody = value.content + '<br/><b>' + value.status + '</b>';
+			emailDialog.messageBody = 'Task - ' + value.content + '<br/>Status - <b>' + value.status + '</b>';
 			if(value.image && value.image != "") {
 				emailDialog.addAttachment(value.image);
 			}
