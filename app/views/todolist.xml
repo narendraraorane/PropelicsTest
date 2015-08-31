@@ -35,19 +35,19 @@
 				The ToDo list. 
 				This listView have template.
 			-->
-			<ListView id="listView" defaultItemTemplate="userTemplate" onItemclick="onItemClick">
+			<ListView id="listView" defaultItemTemplate="userTemplate" onItemclick="onItemClick" onDelete="delRow" >
 				<Templates>
 					<!-- UserTemplate - this is the default ListItem template -->
-					<ItemTemplate id="userTemplate" name="userTemplate" class="template">
-						<View class="hgroup left-buffer">
-							<ImageView id="imgPhoto" bindId="imgPhoto" class="avatar"/>
+					<ItemTemplate id="userTemplate" name="userTemplate" class="template" >
+						<View class="hgroup left-buffer" >
+							<ImageView id="imgPhoto" bindId="imgPhoto" class="avatar" onClick="openPic" />
 							<View>
 								<Label id="lblContent" bindId="lblContent" class="title top" height="70" />
-								<View class="hgroup bottom" height="25">
+								<View class="hgroup bottom" height="25" >
 									<Label id="lblDtModified" bindId="lblDtModified" class="subtitle left-buffer" />
-									<Label id="lblStatus" bindId="lblStatus" class="subtitle left10" />
-									<Label id="emailBtn" class="icon icon-btn icon-email left15" bubbleParent="false" onClick="emlShare"/>
-									<Label id="msgBtn" class="icon icon-btn icon-message left-buffer" bubbleParent="false" onClick="smsShare"/>
+									<Label id="lblStatus" bindId="lblStatus" class="subtitle left-buffer" />
+									<Label id="emailBtn" class="icon icon-btn icon-email left-buffer" onClick="emlShare"/>
+									<Label id="msgBtn" class="icon icon-btn icon-message left-buffer" onClick="smsShare"/>
 								</View>
 							</View>
 							<!-- <View class="gray-line bottom"/> -->
@@ -55,7 +55,7 @@
 					</ItemTemplate>
 				</Templates>
 				<ListSection id="section" dataCollection="todolist" dataTransform="doTransform" dataFilter="filterOutput">
-					<ListItem template="userTemplate" imgPhoto:image="{image}" lblContent:text="{content}" lblDtModified:text="{dt_modified}" todo:id="{id}" lblStatus:text="{status}" searchableText="{content}" accessoryType="Titanium.UI.LIST_ACCESSORY_TYPE_DISCLOSURE" />
+					<ListItem template="userTemplate" imgPhoto:image="{image}" lblContent:text="{content}" lblDtModified:text="{dt_modified}" todo:id="{id}" lblStatus:text="{status}" searchableText="{content}" accessoryType="Titanium.UI.LIST_ACCESSORY_TYPE_DISCLOSURE" canEdit="true" />
 				</ListSection>				
 			</ListView>
 		</View>

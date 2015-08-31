@@ -2,7 +2,7 @@ exports.definition = {
 	config: {
 		columns: {
 			id: 'INTEGER PRIMARY KEY AUTOINCREMENT',
-		    "image": "TEXT",
+		    "image": "BLOB",
 		    "content": "TEXT",
 		    "status": "Varchar(9)",
 		    "dt_modified": "TEXT",
@@ -31,7 +31,7 @@ exports.definition = {
 	                    if (key == "content") {
 	                        if (value.length <= 0) {
 	                        		alert("Error: Content is empty!");
-	                            return -1;
+	                            	return -1;
 	                        }
 	                    }
 	            }
