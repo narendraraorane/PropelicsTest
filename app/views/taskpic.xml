@@ -1,0 +1,5 @@
+<Alloy>
+	<Window id="win" title="Picture">
+		<ImageView id="imgTaskPic"/>
+	</Window>
+</Alloy>

@@ -7,7 +7,8 @@
 */
 var _args = arguments[0] || {}, // Any passed in arguments will fall into this property
 	moment = require('alloy/moment'),
-	status = 'Pending';
+	status = 'Pending',
+	flag = false;
 
 var colToDoList = Alloy.Collections.instance('todolist');	
 
@@ -25,7 +26,11 @@ Ti.Analytics.featureEvent(Ti.Platform.osname+"."+title+".viewed");
  * @param {Object} Event data passed to the function
  */
 function onItemClick(e){
-	
+	console.log("e ==> " + JSON.stringify(e));
+	if(!flag) {
+		flag = true;
+		return;
+	}
 	/**
 	 * Appcelerator Analytics Call
 	 */
@@ -134,40 +139,16 @@ function init() {
 	colToDoList.fetch({query: "SELECT * FROM todolist ORDER BY dt_modified DESC"});
 	// while (colToDoList.length > 0)
 		// colToDoList.at(0).destroy();
-	
 }
 
 function doTransform(model) {
     // Need to convert the model to a JSON object
     var transform = model.toJSON();
-    Ti.API.info("transform ==> " + JSON.stringify(transform));
     transform.dt_modified = moment(transform.dt_modified).fromNow();
     return transform;
 }
 
-function saveData() {
-	var modToDoList = Alloy.createModel('todolist', {image:"", content:"Naren is good boy", dt_modified: moment().format()}); 
-
-	// Since set or save(attribute) is not being called, we can call isValid to validate the model object
-	if (modToDoList.isValid()) {
-	    // Save data to persistent storage
-	    modToDoList.save();
-	    /*$.txtName.setValue("");
-	    $.txtAge.setValue("");
-	    $.txtName.focus();*/
-	}
-	else {
-	    //modToDoList.destroy();
-	}
-	init();
-}
-
 function addToDoItem() {
-	Alloy.Globals.Navigator.open("todoform");
-	return;
-}
-
-function displayHomeAsUp() {
 	Alloy.Globals.Navigator.open("todoform");
 	return;
 }
@@ -177,6 +158,7 @@ function filterOutput(collection) {
 }
 
 function emlShare(e) {
+	flag = false; // Just a hack since bubbleParent is not working.
 	var item = $.listView.sections[e.sectionIndex].items[e.itemIndex];
 	var data = colToDoList.toJSON();
 	
@@ -187,32 +169,25 @@ function emlShare(e) {
 			emailDialog.toRecipients = ['pablo.guevara@propelics.com', 'carolina.lopez@propelics.com', 'cesar.cavazos@propelics.com'];
 			emailDialog.messageBody = '<b>' + value.status + '</b><br/>' + value.content;
 			if(value.image && value.image != "") {
-				var filename = value.image.split("/");
-				if(filename.length > 0) {
-					filename = filename[filename.length - 1];
-		            var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, filename);
-					emailDialog.addAttachment(file);
-				}
+				emailDialog.addAttachment(value.image);
 			}
 			emailDialog.open();			
 		}		
 	});
-	
 }
 
 function smsShare(e) {
+	flag = false; // Just a hack since bubbleParent is not working.
 	var item = $.listView.sections[e.sectionIndex].items[e.itemIndex];
 	var data = colToDoList.toJSON();
 	
 	_.each(data, function(value, key) {
 		if(value.id === item.todo.id) {
-			console.log("data ==> " + JSON.stringify(value));
 			if(OS_IOS) {
-				sendSMS("+91 1234567890", value.content + "\n" + value.status, value.imge);
+				sendSMS("+91 1234567890", value.content + "\n" + value.status, value.image);
 			} else {
 				openSMSIntent("+91 1234567890", value.content);
 			}
-
 		}		
 	});
 }
@@ -226,15 +201,14 @@ function openSMSIntent(phone, content) {
 	Ti.Android.currentActivity.startActivity(intent);
 }
 
-function sendSMS(phone, content, imagePath) {
+function sendSMS(phone, content, imageBlob) {
     var module = require('com.omorandi');
     Ti.API.info("module is => " + module);
 
     //create the smsDialog object
     var smsDialog = module.createSMSDialog();
     //check if the feature is available on the device at hand
-    if (!smsDialog.isSupported())
-    {
+    if (!smsDialog.isSupported()) {
         //falls here when executed on iOS versions < 4.0 and in the emulator
         var a = Ti.UI.createAlertDialog({title: 'warning', message: 'the required feature is not available on your device'});
         a.show();
@@ -253,12 +227,9 @@ function sendSMS(phone, content, imagePath) {
             Ti.API.info('We can send attachments');
             //add an attachment as a file path
             //smsDialog.addAttachment('images/01.jpg', 'image1.jpg');
-			var filename = imagePath.split("/");
-			if(filename.length > 0) {
-				filename = filename[filename.length - 1];
-	            var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, filename);
-	            //add an attachment as a TiBlob
-	            smsDialog.addAttachment(file.read(), filename);
+			if(imageBlob) {
+				var fileName = "" + ".png";
+	            smsDialog.addAttachment(imageBlob, filename);
 			}
         }
         else {
@@ -301,5 +272,16 @@ function sortData(e) {
 	init();
 }
 
+function delRow(e) {
+	/**
+	 * Get the Item that was clicked
+	 */
+	var item = $.listView.sections[e.sectionIndex].items[e.itemIndex];
+	var model = Alloy.createModel('todolist', {id: item.todo.id});
+	model.destroy();
+}
 
-//saveData();
+function openPic(e) {
+	flag = false;
+	Alloy.Globals.Navigator.open("taskpic", {image: e.source.image});
+}
