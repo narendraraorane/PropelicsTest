@@ -167,7 +167,7 @@ function emlShare(e) {
 			var emailDialog = Ti.UI.createEmailDialog();
 			emailDialog.subject = "To Do List";
 			emailDialog.toRecipients = ['pablo.guevara@propelics.com', 'carolina.lopez@propelics.com', 'cesar.cavazos@propelics.com'];
-			emailDialog.messageBody = '<b>' + value.status + '</b><br/>' + value.content;
+			emailDialog.messageBody = value.content + '<br/><b>' + value.status + '</b>';
 			if(value.image && value.image != "") {
 				emailDialog.addAttachment(value.image);
 			}
@@ -197,7 +197,7 @@ function openSMSIntent(phone, content, status) {
 		action: Ti.Android.ACTION_SENDTO,
 		data: 'smsto:' + phone
 	});
-	intent.putExtra('sms_body', content + " - " + status);
+	intent.putExtra('sms_body', "Task - " + content + "\nStauts - " + status);
 	Ti.Android.currentActivity.startActivity(intent);
 }
 
